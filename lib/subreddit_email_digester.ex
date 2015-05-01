@@ -1,0 +1,2 @@
+defmodule SubredditEmailDigester do
+end
