@@ -1,0 +1,20 @@
+defmodule Mailer do 
+  def deliver(email) do
+    Mailman.deliver(email, config)
+  end
+
+  def config do
+    %Mailman.Context{
+      config: %Mailman.SmtpConfig {
+        relay: "smtp.gmail.com",
+        username: "bradcypert",
+        password: "password",
+        port: 465,
+        ssl: true,
+        tls: :never,
+        auth: :always},
+      composer: %Mailman.EexComposeConfig{}
+    }
+  end
+
+end

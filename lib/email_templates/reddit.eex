@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <h1>Reddit Digest</h1>
+    <p>Here is a daily digest of reddit articles:</p>
+    <%= for sub <- sub_list @conn do%>
+      <div>
+        <h2><a href="http://www.reddit.com/r/<%= sub.name  %>/top"><%= sub.name %></a></h2>
+        <%= for post <- sub.posts @conn do %>
+          <p><a href="<%= post.Url %>"> <%= post.title %></a></p>
+        <% end %>
+      </div>
+    <% end %>
+  </body>
+</html>

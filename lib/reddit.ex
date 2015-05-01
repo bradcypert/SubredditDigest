@@ -7,15 +7,16 @@ defmodule Reddit do
 
   defp get_all_top_posts([head]), do: [get_top_posts head]
   defp get_all_top_posts([head | tail]) do
-    decoded = JSX.decode(get_top_posts (head))
-    [decoded] ++ get_all_top_posts tail
+    [get_top_posts head] ++ get_all_top_posts tail
   end
 
   defp get_top_posts(subreddit) do
     IO.puts "Getting " <> subreddit <> "..."
-    response = process_url(subreddit)
-                |> HTTPotion.get
-    response.body
+    body = (subreddit
+    |> process_url
+    |> HTTPotion.get
+    |> Map.get :body)
+    JSX.decode! body
   end
 
   defp get_subreddits_from_file do
