@@ -2,13 +2,13 @@ defmodule Reddit do
   @subreddit_file "lib/sites/subreddits.txt"
 
   defp process_url(subreddit) do
-    "http://www.reddit.com/r/" <> subreddit <> "/top.json"
+    "http://www.reddit.com/r/" <> subreddit <> "/top.json?limit=5"
   end
 
   defp get_all_top_posts([head]), do: [get_top_posts head]
   defp get_all_top_posts([head | tail]) do
     decoded = JSX.decode(get_top_posts (head))
-    decoded ++ get_all_top_posts tail
+    [decoded] ++ get_all_top_posts tail
   end
 
   defp get_top_posts(subreddit) do
