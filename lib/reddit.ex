@@ -1,11 +1,9 @@
 defmodule Reddit do
-  @my_email "brad.cypert@gmail.com"
+  @my_email "your@email.com"
   @email_file "lib/email_templates/reddit.eex"
   @subreddit_file "lib/sites/subreddits.txt"
 
-  defp process_url(subreddit) do
-    "http://www.reddit.com/r/" <> subreddit <> "/top.json?limit=5"
-  end
+  defp process_url(subreddit), do: "http://www.reddit.com/r/#{subreddit}/top.json?limit=5"
 
   defp get_all_top_posts([head]), do: [get_top_posts head]
   defp get_all_top_posts([head | tail]) do
@@ -13,7 +11,7 @@ defmodule Reddit do
   end
 
   defp get_top_posts(subreddit) do
-    IO.puts "Getting " <> subreddit <> "..."
+    IO.puts "Getting #{subreddit}..."
     body = (subreddit
     |> process_url
     |> HTTPotion.get
@@ -28,7 +26,6 @@ defmodule Reddit do
   end
 
   defp build_email_from_data(dataList) do
-    IO.puts "Building..."
     markup = File.read! @email_file
     IO.puts markup
     %Mailman.Email{
