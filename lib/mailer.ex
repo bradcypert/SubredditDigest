@@ -1,5 +1,5 @@
 defmodule Mailer do
-  @my_username "bradcypert"
+  @my_username "my_username"
   @my_password "password"
 
   def deliver(email) do
