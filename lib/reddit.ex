@@ -1,4 +1,6 @@
 defmodule Reddit do
+  @my_email "brad.cypert@gmail.com"
+  @email_file "lib/email_templates/reddit.eex"
   @subreddit_file "lib/sites/subreddits.txt"
 
   defp process_url(subreddit) do
@@ -25,9 +27,23 @@ defmodule Reddit do
     |> Enum.filter(fn(x) -> x != "" end)
   end
 
+  defp build_email_from_data(dataList) do
+    IO.puts "Building..."
+    markup = File.read! @email_file
+    IO.puts markup
+    %Mailman.Email{
+      subject: "Reddit Daily Digest",
+      from: "redditdigest@bradcypert.com",
+      to: [ "brad.cypert@gmail.com" ],
+      data: [sub_list: dataList],
+      html: markup
+    }
+  end
+
   def generate_email_from_top_posts do
     get_subreddits_from_file
     |> get_all_top_posts
+    |> build_email_from_data
   end
 
 end

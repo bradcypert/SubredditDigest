@@ -1,7 +1,8 @@
 defmodule SubredditEmailDigester do
 
   def main do
-    Reddit.generate_email_from_top_posts
+    email = Reddit.generate_email_from_top_posts
+    Mailer.deliver email
   end
 
 end

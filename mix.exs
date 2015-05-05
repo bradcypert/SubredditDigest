@@ -27,6 +27,7 @@ defmodule SubredditEmailDigester.Mixfile do
   defp deps do
     [{:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.1"},
      {:httpotion, "~> 2.0.0"},
-     {:exjsx, "~>3.1.0"}]
+     {:exjsx, "~>3.1.0"},
+     {:mailman, github: "kamilc/mailman"}]
   end
 end

@@ -4,13 +4,15 @@
   <body>
     <h1>Reddit Digest</h1>
     <p>Here is a daily digest of reddit articles:</p>
-    <%= for sub <- sub_list @conn do%>
+    <%= for sub <- sub_list do %>
       <div>
-        <h2><a href="http://www.reddit.com/r/<%= sub.name  %>/top"><%= sub.name %></a></h2>
-        <%= for post <- sub.posts @conn do %>
-          <p><a href="<%= post.Url %>"> <%= post.title %></a></p>
-        <% end %>
+        <h2><a href="http://www.reddit.com/r/<%= (List.first sub["data"]["children"])["data"]["subreddit"]  %>/top">
+            /r/<%= (List.first sub["data"]["children"])["data"]["subreddit"] %></a></h2>
+        <%= for post <- sub["data"]["children"] do %>
+          <p><a href="<%= post["data"]["url"]  %>"> <%= post["data"]["title"] %> </a></p>
+        <%= end %>
       </div>
+      <br/>
     <% end %>
   </body>
 </html>
